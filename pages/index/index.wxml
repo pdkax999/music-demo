@@ -1,0 +1,81 @@
+<!-- pages/index/index.wxml -->
+<view class="index_container">
+  <!-- 轮播图组件 -->
+  <swiper class="index_swiper" circular indicator-dots indicator-color='ivory' indicator-active-color='#d43c33'>
+    <swiper-item wx:for="{{banners}}" wx:key="bannerId">
+      <image src="{{item.pic}}" />
+    </swiper-item>
+  </swiper>
+  <!-- 首页导航 -->
+  <view class="index_guide">
+    <view class="guide_item">
+      <text class="iconfont icon-meirituijian"></text>
+      <text>每日推荐</text>
+    </view>
+    <view class="guide_item">
+      <text class="iconfont icon-meirituijian"></text>
+      <text>每日推荐</text>
+    </view>
+    <view class="guide_item">
+      <text class="iconfont icon-meirituijian"></text>
+      <text>每日推荐</text>
+    </view>
+    <view class="guide_item">
+      <text class="iconfont icon-meirituijian"></text>
+      <text>每日推荐</text>
+    </view>
+    <view class="guide_item">
+      <text class="iconfont icon-meirituijian"></text>
+      <text>每日推荐</text>
+    </view>
+  </view>
+  <!-- 排行榜 -->
+  <view class="index_ranking_list">
+    <view class="index_head">
+      <view>推荐歌曲</view>
+      <view class="tips">
+        <text>为你精心推荐</text>
+        <text>查看更多</text>
+      </view>
+    </view>
+    <!-- 滚动区域 -->
+    <scroll-view class="scroll_recommend_list" enable-flex scroll-x>
+      <view>
+        <image src="/static/images/nvsheng.jpg"/>
+        <text>只争朝夕，不付韶华只争朝夕，不付韶华只争朝夕，不付韶华
+        </text>
+      </view>
+      <view>
+        <image src="/static/images/nvsheng.jpg"/>
+        <text>只争朝夕，不付韶华
+        </text>
+      </view>
+      <view>
+        <image src="/static/images/nvsheng.jpg"/>
+        <text>只争朝夕，不付韶华
+        </text>
+      </view>
+      <view>
+        <image src="/static/images/nvsheng.jpg"/>
+        <text>只争朝夕，不付韶华
+        </text>
+      </view>
+      <view>
+        <image src="/static/images/nvsheng.jpg"/>
+        <text>只争朝夕，不付韶华
+        </text>
+      </view>
+      <view>
+        <image src="/static/images/nvsheng.jpg"/>
+        <text>只争朝夕，不付韶华
+        </text>
+      </view>
+      <view>
+        <image src="/static/images/nvsheng.jpg"/>
+        <text>只争朝夕，不付韶华
+        </text>
+      </view>
+    </scroll-view>
+  </view>
+  <view>你看的见我吗 </view>
+</view>
