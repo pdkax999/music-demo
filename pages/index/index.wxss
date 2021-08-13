@@ -32,34 +32,14 @@
   border-radius: 50%;
   margin: 20rpx 0;
 }
-/* 排行榜 */
+/* 推荐列表 */
 .index_ranking_list {
   padding: 20rpx;
   overflow: hidden;
-  
-}
-.index_ranking_list .index_head view:first-child {
-  color: #666;
-  font-size: 32rpx;
-  padding: 20rpx 0;
-}
-
-.index_head .tips {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.tips text:last-child {
-  padding: 10rpx;
-  font-size: 26rpx;
-  border-radius: 10rpx;
-  border: 2rpx solid black;
-  font-size: 24rpx;
 }
 
 /* 排行榜滚动区域 */
-.scroll_recommend_list{
+.scroll_recommend_list {
   display: flex;
   height: 300rpx;
   margin-top: 10rpx;
@@ -70,16 +50,57 @@
   height: 200rpx;
   border-radius: 10rpx;
 }
-.scroll_recommend_list view{
+.scroll_recommend_list view {
   width: 200rpx;
   margin-right: 20rpx;
 }
-.scroll_recommend_list view>text {
+.scroll_recommend_list view > text {
   font-size: 26rpx;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-box-orient: vertical; 
+  -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+/* 排行榜 */
+.ranking_container {
+  padding: 20rpx;
+}
+
+/* swiper */
+
+.ranking_swiper{
+  height: 400rpx;
+}
+
+/* 排行榜的item */
+
+.ranking{
+background-color: #fbfbfb;
+width: 97%;
+}
+
+.ranking .title{
+  line-height: 60rpx;
+}
+
+.ranking > .ranking-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.ranking > .ranking-item image,
+.ranking > .ranking-item text:first-child {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 10rpx;
+}
+.ranking > .ranking-item .ord{
+  width: 100rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
 }

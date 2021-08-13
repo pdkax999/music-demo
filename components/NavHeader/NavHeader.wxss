@@ -1,0 +1,19 @@
+/* components/Navheader.wxss */
+.Navheader view:first-child{
+  color: #666;
+  font-size: 32rpx;
+  padding: 20rpx 0;
+}
+.Navheader  .tips {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tips text:last-child {
+  padding: 10rpx;
+  font-size: 26rpx;
+  border-radius: 10rpx;
+  border: 2rpx solid black;
+  font-size: 24rpx;
+}

@@ -13,69 +13,47 @@
       <text>每日推荐</text>
     </view>
     <view class="guide_item">
-      <text class="iconfont icon-meirituijian"></text>
-      <text>每日推荐</text>
+      <text class="iconfont icon-gedan1"></text>
+      <text>Other页面</text>
     </view>
     <view class="guide_item">
-      <text class="iconfont icon-meirituijian"></text>
-      <text>每日推荐</text>
+      <text class="iconfont icon-icon-ranking"></text>
+      <text>排行榜</text>
     </view>
     <view class="guide_item">
-      <text class="iconfont icon-meirituijian"></text>
-      <text>每日推荐</text>
+      <text class="iconfont icon-diantai"></text>
+      <text>电台</text>
     </view>
     <view class="guide_item">
-      <text class="iconfont icon-meirituijian"></text>
-      <text>每日推荐</text>
+      <text class="iconfont icon-zhiboguankanliangbofangsheyingshexiangjixianxing"></text>
+      <text>直播</text>
     </view>
   </view>
   <!-- 排行榜 -->
   <view class="index_ranking_list">
-    <view class="index_head">
-      <view>推荐歌曲</view>
-      <view class="tips">
-        <text>为你精心推荐</text>
-        <text>查看更多</text>
-      </view>
-    </view>
+    <NavHeader title="推荐歌曲" tips="为你精心推荐"></NavHeader>
     <!-- 滚动区域 -->
     <scroll-view class="scroll_recommend_list" enable-flex scroll-x>
-      <view>
-        <image src="/static/images/nvsheng.jpg"/>
-        <text>只争朝夕，不付韶华只争朝夕，不付韶华只争朝夕，不付韶华
-        </text>
-      </view>
-      <view>
-        <image src="/static/images/nvsheng.jpg"/>
-        <text>只争朝夕，不付韶华
-        </text>
-      </view>
-      <view>
-        <image src="/static/images/nvsheng.jpg"/>
-        <text>只争朝夕，不付韶华
-        </text>
-      </view>
-      <view>
-        <image src="/static/images/nvsheng.jpg"/>
-        <text>只争朝夕，不付韶华
-        </text>
-      </view>
-      <view>
-        <image src="/static/images/nvsheng.jpg"/>
-        <text>只争朝夕，不付韶华
-        </text>
-      </view>
-      <view>
-        <image src="/static/images/nvsheng.jpg"/>
-        <text>只争朝夕，不付韶华
-        </text>
-      </view>
-      <view>
-        <image src="/static/images/nvsheng.jpg"/>
-        <text>只争朝夕，不付韶华
-        </text>
+      <view wx:for="{{recommends}}" wx:key="id">
+        <image src="{{item.picUrl}}" />
+        <text>{{item.name}}</text>
       </view>
     </scroll-view>
   </view>
-  <view>你看的见我吗 </view>
+  <!-- 排行榜区域 -->
+  <view class="ranking_container">
+    <NavHeader title="排行榜" tips="热歌风向标"></NavHeader>
+    <swiper class="ranking_swiper" next-margin="50rpx" previous-margin="50rpx" circular>
+      <swiper-item wx:for="{{tops}}" wx:key="id">
+        <view class="ranking">
+          <view class="title">{{item.name}}</view>
+          <view class="ranking-item" wx:for-item='myItem' wx:for="{{item.tracks}}" wx:key="id">
+            <image src="{{myItem.picUrl}}" />
+            <text class="ord">{{index+1}}</text>
+            <text>{{myItem.name}}</text>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
 </view>

@@ -1,39 +1,78 @@
-// pages/index/index.js
+import request from "../../utils/request";
+
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    banners:[]
+    banners: [],
+    recommends: [],
+    tops: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getinitData()
+  },
 
-    wx.request({
-      url:'http://localhost:3000/banner',
-      data:{
-        type:1
-      },
-      success:(res)=>{
+  async getinitData() {
 
-       this.setData({
-        banners:res.data.banners
-       })
-        
-
-      },
-      fail:(err)=> {
-
-        console.log(err);
-        
-
-      }
+    let result = await request('/banner', {
+      type: 1
+    })
+    this.setData({
+      banners: result.banners
     })
 
+    result = await request('/personalized')
+
+    this.setData({
+      recommends: result.result
+    })
+
+    this.getRankingList()
+  },
+
+  async getRankingList() {
+    let result = [{}, {}, {}, {}, {}];
+    let arr = []
+    result.map(async (item, index) => {
+
+      let val = await request('/top/list', {
+        idx: index
+      })
+      arr.push({
+        tracks: this.processArr(val.playlist.tracks.slice(0, 3)),
+        name: val.playlist.name,
+        id:val.playlist.id
+      })
+      if (arr.length == result.length) {
+        this.setData({
+          tops: arr
+
+        })
+
+      }
+
+    })
+
+  },
+
+
+  processArr(arr) {
+    return arr.map((item) => {
+
+      return {
+        id: item.al.id,
+        name: item.al.name,
+        picUrl: item.al.picUrl
+      }
+
+    })
   },
 
   /**
