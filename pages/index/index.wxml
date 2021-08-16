@@ -31,6 +31,7 @@
   </view>
   <!-- 排行榜 -->
   <view class="index_ranking_list">
+    
     <NavHeader title="推荐歌曲" tips="为你精心推荐"></NavHeader>
     <!-- 滚动区域 -->
     <scroll-view class="scroll_recommend_list" enable-flex scroll-x>
@@ -41,6 +42,7 @@
     </scroll-view>
   </view>
   <!-- 排行榜区域 -->
+
   <view class="ranking_container">
     <NavHeader title="排行榜" tips="热歌风向标"></NavHeader>
     <swiper class="ranking_swiper" next-margin="50rpx" previous-margin="50rpx" circular>

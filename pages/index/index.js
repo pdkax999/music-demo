@@ -20,52 +20,73 @@ Page({
   },
 
   async getinitData() {
-
     let result = await request('/banner', {
       type: 1
     })
     this.setData({
       banners: result.banners
     })
-
     result = await request('/personalized')
-
     this.setData({
       recommends: result.result
     })
+    // this.getRankingList()
+    this.getRankingList1()
+  },
+  /* 通过Promise处理请求回来的数据 */
+  async getRankingList1() {
 
-    this.getRankingList()
+    let data = [request('/top/list', {
+        idx: 0
+      }), request('/top/list', {
+        idx: 1
+      }),
+      request('/top/list', {
+        idx: 2
+      }), request('/top/list', {
+        idx: 3
+      }), request('/top/list', {
+        idx: 4
+      })
+    ]
+
+    let result = await Promise.all(data)
+    let ending = result.map((item) => {
+      return {
+        id: item.playlist.id,
+        name: item.playlist.name,
+        tracks: this.processArr(item.playlist.tracks.slice(0, 3))
+      }
+    })
+
+    this.setData({
+      tops: ending
+    })
   },
 
+  /* 自己手动处理 */
   async getRankingList() {
+
     let result = [{}, {}, {}, {}, {}];
     let arr = []
     result.map(async (item, index) => {
-
       let val = await request('/top/list', {
         idx: index
       })
       arr.push({
         tracks: this.processArr(val.playlist.tracks.slice(0, 3)),
         name: val.playlist.name,
-        id:val.playlist.id
+        id: val.playlist.id
       })
-      if (arr.length == result.length) {
-        this.setData({
-          tops: arr
-
-        })
-
-      }
-
     })
-
+    this.setData({
+      tops: arr
+    })
+  
   },
-
 
   processArr(arr) {
     return arr.map((item) => {
-
       return {
         id: item.al.id,
         name: item.al.name,
