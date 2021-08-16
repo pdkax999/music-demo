@@ -1,2 +1,47 @@
-<!--pages/video/video.wxml-->
-<text>pages/video/video.wxml</text>
+<!-- pages/video/video.wxml -->
+<view class="Videocontainer">
+  <!-- 视频导航栏头部 -->
+  <view class="Videohead">
+    <image src="/static/images/video/video.jpg" />
+    <text class="searchMuise">搜索音乐</text>
+    <image src="/static/images/logo.png" />
+  </view>
+  <!-- 滚动导航条 -->
+  <scroll-view class="NavGuide" enable-flex scroll-x>
+    <view class="guide_item" wx:for="{{groupList}}" wx:key="id" bind:tap="getVideoData" id="{{item.id}}">
+      <view id="{{item.id}}" bind:tap="selected" data-id="{{item.id}}" class="{{activeId ===item.id && 'active'}}">
+        {{item.name}}
+      </view>
+    </view>
+  </scroll-view>
+  <!-- 视频播放列表 -->
+  <scroll-view class="video_container">
+    <!-- key重复没有发生报错 -->
+    <view class="video-item" wx:for="{{videos}}" wx:key="id">
+      
+      <video bindtimeupdate="timeUpdate" class="common" wx:if="{{item.data.vid== playId}}" src="{{item.data.urlInfo.url}}" object-fit="cover" id="{{item.data.vid}}" bindplay="playVideo" />
+      
+      <image class="common" wx:else src="{{item.data.coverUrl}}" id="{{item.data.vid}}"  bind:tap="playVideo"/>
+
+      <!-- 视屏底部 -->
+      <view class="content">{{item.data.title}}</view>
+      <view class="footer">
+        <image class="avatar" src="{{item.data.creator.avatarUrl}}"></image>
+        <text class="nickName">{{item.data.creator.nickname}}</text>
+        <view class="comments_praised">
+          <text class="item">
+            <text class="iconfont icon-buoumaotubiao15"></text>
+            <text class="count">{{item.data.praisedCount}}</text>
+          </text>
+          <text class="item">
+            <text class="iconfont icon-pinglun1"></text>
+            <text class="count">{{item.data.commentCount}}</text>
+          </text>
+          <button open-type="share" class="item btn">
+            <text class="iconfont icon-gengduo"></text>
+          </button>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

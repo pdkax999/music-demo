@@ -47,6 +47,14 @@
       <view class="recentPlayContainer">
         <text class="title">最近播放</text>
         <!-- 最近播放记录 -->
+        <scroll-view class="scroll_playAmount" enable-flex scroll-x wx:if="{{playlist.length}}">
+          <view  class="playAmount" wx:for="{{playlist}}" wx:key="index">
+            <image src="{{item.song.al.picUrl}}" />
+          </view>          
+        </scroll-view>
+        <view wx:else class="noData">
+          暂无播放记录
+        </view>
       </view>
       <view class="cardList">
         <view class="card-item">

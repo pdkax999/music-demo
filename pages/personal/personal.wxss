@@ -211,3 +211,22 @@
 .cardList .card-item .more {
   float: right;
 }
+
+/* 滚动列表 */
+
+.scroll_playAmount{
+  display: flex;
+  height: 200rpx;
+}
+.playAmount{
+  margin-right: 20rpx;
+}
+.playAmount image{
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 10rpx;
+}
+
+.noData{
+  transform: translateX(50rpx);
+}

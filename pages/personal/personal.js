@@ -1,5 +1,7 @@
 // pages/personal/personal.js
 
+import request from "../../utils/request";
+
 let moveCoord = {}
 
 
@@ -10,7 +12,8 @@ Page({
   data: {
     translateY: 'translateY(0rpx)',
     transition: '',
-    userInfo: {}
+    userInfo: {},
+    playlist: [] //播放列表
   },
   /* 
     个人中心过渡效果
@@ -52,7 +55,7 @@ Page({
   },
   /* 去登录 */
   gotoLogin() {
-
+    /* 登录之后不再允许进入登录页面 */
     if (this.data.userInfo.nickname) {
       return
     }
@@ -61,14 +64,23 @@ Page({
     })
   },
   /* 获取播放历史列表 */
-  getplaylist(){
+  async getplaylist(uid) {
+    // 需要携带用户的唯一id 
+    let result = await request('/user/record', {
+      uid,
+      type: 1
+    })
 
+    if (result.code != 200) return
 
+    this.setData({
+      playlist: result.weekData.slice(0, 10)
+
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
-
   /* 动态显示页面信息 */
   /* 不同情境 用不同的路由跳转  */
   onLoad: function (options) {
@@ -76,10 +88,15 @@ Page({
     let userInfo = wx.getStorageSync('userInfo')
 
     if (userInfo) {
-
+      /* 同步修改 */
       this.setData({
         userInfo
       })
+
+      this.getplaylist(this.data.userInfo.userId)
+
+
+
     }
 
   },

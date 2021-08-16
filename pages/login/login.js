@@ -43,7 +43,6 @@ Page({
       })
       return
     }
-
     if (!password) {
       wx.showToast({
         title: '密码不能为空',
@@ -56,8 +55,9 @@ Page({
     /* 后端验证 */
     let result = await request('/login/cellphone', {
       phone,
-      password
-    })
+      password,
+      isLogin:true
+    })      
 
     /* 失败种类太多，先处理成功 */
     if (result.code == 200) {
@@ -65,6 +65,9 @@ Page({
         title: '登录成功',
         icon: 'success'
       })
+      // 用户主动删除或因存储空间原因被系统清理，
+      //否则数据都一直可用。单个 key 允许存储的最大数据
+      //长度为 1MB，所有数据存储上限为 10MB
       wx.setStorage({
         key: 'userInfo',
         data: result.profile
@@ -72,8 +75,6 @@ Page({
       wx.switchTab({
         url: '/pages/personal/personal'
       });
-
-
     } else if (result.code == 501) {
 
       wx.showToast({
@@ -83,6 +84,11 @@ Page({
     } else if (result.code == 502) {
       wx.showToast({
         title: '密码错误',
+        icon: 'none'
+      })
+    } else {
+      wx.showToast({
+        title: '网络繁忙,请稍后重试',
         icon: 'none'
       })
     }
