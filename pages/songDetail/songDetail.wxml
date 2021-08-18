@@ -1,0 +1,19 @@
+<!-- pages/songDetail/songDetail.wxml -->
+<view class="songDetail">
+  <view class="music">
+    <text class="author">{{songInfo.artists[0].name}}</text>
+    <view class="base"></view>
+    <image class="pointer {{isPlay&&'songPlay'}}" src="/static/images/song/needle.png" />
+    <view class="img_container {{isPlay&&'songPlay'}}" bind:tap="onMusicPlay">
+      <image src="/static/images/song/disc.png" />
+      <image class="musicImg" src="{{songInfo.album.blurPicUrl}}" />
+    </view>
+  </view>
+  <view class="musicControl">
+    <text class="iconfont icon-iconsMusicyemianbofangmoshiShuffle"></text>
+    <text class="iconfont icon-shangyishou" id="pre" bindtap="handleSwitch"></text>
+    <text class="iconfont {{!isPlay?'icon-zanting': 'icon-bofang'}} big" bindtap="onMusicPlay"></text>
+    <text class="iconfont icon-next" id="next" bindtap="handleSwitch"></text>
+    <text class="iconfont icon-iconsMusicyemianbofangmoshiPlayList"></text>
+  </view>
+</view>

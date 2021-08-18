@@ -27,8 +27,6 @@ Page({
       transition: ''
     })
 
-
-
   },
   handelTouchmove(event) {
 
@@ -36,7 +34,7 @@ Page({
 
     let disY = moveCoord.end - moveCoord.start
 
-    if (disY < 0) return
+    if (disY <=0) return
 
     if (disY >= 80) disY = 80
 
@@ -56,21 +54,23 @@ Page({
   /* 去登录 */
   gotoLogin() {
     /* 登录之后不再允许进入登录页面 */
+    
     if (this.data.userInfo.nickname) {
       return
     }
-    wx.redirectTo({
+
+    wx.navigateTo({
       url: '/pages/login/login'
     })
+  
   },
-  /* 获取播放历史列表 */
+  /* 更具用户ID获取播放历史列表 */
   async getplaylist(uid) {
     // 需要携带用户的唯一id 
     let result = await request('/user/record', {
       uid,
       type: 1
     })
-
     if (result.code != 200) return
 
     this.setData({
@@ -94,11 +94,7 @@ Page({
       })
 
       this.getplaylist(this.data.userInfo.userId)
-
-
-
     }
-
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

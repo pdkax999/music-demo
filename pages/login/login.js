@@ -15,6 +15,7 @@ Page({
   getUserInfo(event) {
     let type = event.target.id
     this.setData({
+    // 通过标识收集数据很妙
       [type]: event.detail.value
     })
   },
@@ -56,8 +57,8 @@ Page({
     let result = await request('/login/cellphone', {
       phone,
       password,
-      isLogin:true
-    })      
+      isLogin: true
+    })
 
     /* 失败种类太多，先处理成功 */
     if (result.code == 200) {
@@ -65,14 +66,15 @@ Page({
         title: '登录成功',
         icon: 'success'
       })
-      // 用户主动删除或因存储空间原因被系统清理，
+      //用户主动删除或因存储空间原因被系统清理，
       //否则数据都一直可用。单个 key 允许存储的最大数据
       //长度为 1MB，所有数据存储上限为 10MB
       wx.setStorage({
         key: 'userInfo',
         data: result.profile
       })
-      wx.switchTab({
+
+      wx.reLaunch({
         url: '/pages/personal/personal'
       });
     } else if (result.code == 501) {
@@ -92,11 +94,6 @@ Page({
         icon: 'none'
       })
     }
-
-
-
-
-
   },
   /**
    * 生命周期函数--监听页面加载

@@ -30,8 +30,8 @@ Page({
     this.setData({
       recommends: result.result
     })
-    // this.getRankingList()
-    this.getRankingList1()
+    this.getRankingList()
+    // this.getRankingList1()
   },
   /* 通过Promise处理请求回来的数据 */
   async getRankingList1() {
@@ -51,6 +51,7 @@ Page({
     ]
 
     let result = await Promise.all(data)
+    
     let ending = result.map((item) => {
       return {
         id: item.playlist.id,
@@ -58,7 +59,7 @@ Page({
         tracks: this.processArr(item.playlist.tracks.slice(0, 3))
       }
     })
-
+    /* 统一更新，效率会更高，要完成五个请求，网络较差，用户可能会看到白屏 */
     this.setData({
       tops: ending
     })
@@ -66,23 +67,24 @@ Page({
 
   /* 自己手动处理 */
   async getRankingList() {
+    let index =0;
 
-    let result = [{}, {}, {}, {}, {}];
-    let arr = []
-    result.map(async (item, index) => {
+    let tops = []
+    
+    while (index<5) {
       let val = await request('/top/list', {
-        idx: index
+        idx: index++
       })
-      arr.push({
+      tops.push({
         tracks: this.processArr(val.playlist.tracks.slice(0, 3)),
         name: val.playlist.name,
         id: val.playlist.id
       })
-    })
-    this.setData({
-      tops: arr
-    })
-  
+      /* 分别更新，效率差，提高网络差时的用户体验效果好 */
+      this.setData({
+        tops: tops
+      })
+    }  
   },
 
   processArr(arr) {
@@ -92,10 +94,16 @@ Page({
         name: item.al.name,
         picUrl: item.al.picUrl
       }
-
     })
   },
 
+  gotoRecommend(){
+  
+  wx.navigateTo({
+    url:'/pages/recommendSong/recommendSong'
+  })
+
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

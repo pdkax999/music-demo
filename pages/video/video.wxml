@@ -1,30 +1,41 @@
 <!-- pages/video/video.wxml -->
 <view class="Videocontainer">
   <!-- 视频导航栏头部 -->
-  <view class="Videohead">
+  <view class="Videohead ">
     <image src="/static/images/video/video.jpg" />
     <text class="searchMuise">搜索音乐</text>
     <image src="/static/images/logo.png" />
   </view>
   <!-- 滚动导航条 -->
-  <scroll-view class="NavGuide" enable-flex scroll-x>
-    <view class="guide_item" wx:for="{{groupList}}" wx:key="id" bind:tap="getVideoData" id="{{item.id}}">
-      <view id="{{item.id}}" bind:tap="selected" data-id="{{item.id}}" class="{{activeId ===item.id && 'active'}}">
+  
+  <scroll-view class="NavGuide " enable-flex scroll-x scroll-into-view="{{gotoScrollItemid}}" scroll-with-animation>
+    <view class="guide_item" wx:for="{{groupList}}" wx:key="id"
+      bind:tap="selected" id="{{'A'+item.id}}"  data-id="{{item.id}}">
+      <view  data-id="{{item.id}}" class="{{activeId == item.id && 'active'}}">
         {{item.name}}
-      </view>
+      </view>     
     </view>
   </scroll-view>
+
+
+
   <!-- 视频播放列表 -->
-  <scroll-view class="video_container">
+  <scroll-view class="video_container" 
+  scroll-y
+  refresher-enabled
+  refresher-triggered="{{isTriggered}}"
+  bindscrolltolower="scrolltolower"
+  bindrefresherrefresh="handelDropDownRefresh">
     <!-- key重复没有发生报错 -->
     <view class="video-item" wx:for="{{videos}}" wx:key="id">
+
+    <video bindtimeupdate="timeUpdate" class="common" wx:if="{{item.data.vid== playId}}" src="{{item.data.urlInfo.url}}" object-fit="cover" id="{{item.data.vid}}" bindplay="playVideo" />
       
-      <video bindtimeupdate="timeUpdate" class="common" wx:if="{{item.data.vid== playId}}" src="{{item.data.urlInfo.url}}" object-fit="cover" id="{{item.data.vid}}" bindplay="playVideo" />
-      
-      <image class="common" wx:else src="{{item.data.coverUrl}}" id="{{item.data.vid}}"  bind:tap="playVideo"/>
+    <image class="common" wx:else src="{{item.data.coverUrl}}" id="{{item.data.vid}}"  bind:tap="playVideo"/>
 
       <!-- 视屏底部 -->
       <view class="content">{{item.data.title}}</view>
+      
       <view class="footer">
         <image class="avatar" src="{{item.data.creator.avatarUrl}}"></image>
         <text class="nickName">{{item.data.creator.nickname}}</text>

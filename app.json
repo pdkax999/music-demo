@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/recommendSong/recommendSong",
+    "pages/songDetail/songDetail",
     "pages/video/video",
     "pages/personal/personal",
     "pages/login/login",
-    "pages/index/index"
-    
+    "pages/index/index"    
   ],
   "window": {
     "navigationBarBackgroundColor": "#d43c33",
@@ -15,7 +16,8 @@
     "color": "#000",
     "selectedColor": "#000",
     "backgroundColor": "#fff",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/index/index",
         "text": "主页",
         "iconPath": "/static/images/tabs/tab-home.png",
@@ -35,6 +37,6 @@
       }
     ]
   },
-
+  "requiredBackgroundModes": ["audio"],
   "sitemapLocation": "sitemap21.json"
 }

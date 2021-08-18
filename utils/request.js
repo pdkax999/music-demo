@@ -9,7 +9,7 @@ export default function (url, data = {}, method = "GET") {
       data,
       method,
       header: {
-        cookie: wx.getStorageSync('cookies') ? wx.getStorageSync('cookies').toString() : ''
+        cookie: wx.getStorageSync('cookies') ?  wx.getStorageSync('cookies').find(item => item.indexOf('MUSIC_U') !== -1) : ''
       },
       success: (res) => {
 
@@ -25,7 +25,6 @@ export default function (url, data = {}, method = "GET") {
           //   data:res.cookies
           // })
         }
-
         resolve(res.data)
       },
 
