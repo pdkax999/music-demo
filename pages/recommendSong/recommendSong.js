@@ -1,7 +1,7 @@
 // pages/recommendSong/recommendSong.js
 
 import request from "../../utils/request";
-
+import PubSub from 'pubsub-js'
 Page({
 
   /**
@@ -38,13 +38,13 @@ Page({
   gotoSongDetail(event) {
 
     let songInfo = event.currentTarget.dataset.data
-    
+
 
     wx.navigateTo({
       url: '/pages/songDetail/songDetail',
       success: function (res) {
         // 通过eventChannel向被打开页面传送数据
-        res.eventChannel.emit('getSongInfo',songInfo)
+        res.eventChannel.emit('getSongInfo', songInfo)
       }
     })
 
@@ -57,7 +57,42 @@ Page({
 
     this.getTime()
     this.getSongList()
+    this.switchMusic()
   },
+
+  switchMusic() {
+    PubSub.subscribe('music', (msg, {
+      id,
+      action
+    }) => {
+      let {
+        songList
+      } = this.data
+
+      let musicIndex = songList.findIndex(item => item.id == id)
+      let result
+      if (action == 'pre') {
+        result = musicIndex - 1
+        if (result < 0) {
+
+          result = songList.length - 1
+        }
+      } else {
+        result = musicIndex + 1
+
+        if (result > songList.length - 1) {
+
+          result = 0
+
+        }
+      }
+
+      PubSub.publish('switchMusic', this.data.songList[result]);
+    });
+
+
+  },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成

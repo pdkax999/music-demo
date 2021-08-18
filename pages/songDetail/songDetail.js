@@ -1,5 +1,6 @@
 // pages/songDetail/songDetail.js
 import request from "../../utils/request";
+import PubSub from 'pubsub-js'
 var appInstance = getApp()
 Page({
 
@@ -9,9 +10,60 @@ Page({
   data: {
     isPlay: false,
     songInfo: {},
-    musicId: ''
+    musicId: '',
+    progress:50
   },
 
+  onLoad: function (options) {
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('getSongInfo', (songInfo) => {
+      this.updateMusic(songInfo)
+
+      if (appInstance.globalData.musicId == songInfo.id && appInstance.globalData.isMusicPlay) {
+
+        this.setData({
+          isPlay: true
+        })
+
+      }
+
+    })
+
+    this.backgroundAudioManager = wx.getBackgroundAudioManager();
+
+    this.onBackgroundAudioControl(this.backgroundAudioManager)
+
+    /* 进度条 */
+   
+
+    PubSub.subscribe('switchMusic', (msg, songInfo) => {
+
+      this.updateMusic(songInfo)
+
+      
+      this.musicControl(true, this.data.musicId)
+    
+    })
+  },
+
+  progressBar(){
+    
+   let duration = this.backgroundAudioManager.duration
+   console.log(duration);
+    
+
+
+  },
+  updateMusic(songInfo) {
+    this.setData({
+      songInfo,
+      musicId: songInfo.id
+    })
+
+    wx.setNavigationBarTitle({
+      title: songInfo.name
+    })
+  },
   onMusicPlay() {
     let isPlay = !this.data.isPlay
     // this.setData({
@@ -23,46 +75,69 @@ Page({
 
   /*播放音频*/
   async musicControl(isPlay, id) {
-    let backgroundAudioManager = wx.getBackgroundAudioManager();
+
     if (isPlay) {
 
       let musicLink = await request('/song/url', {
         id
       })
-      backgroundAudioManager.src = musicLink.data[0].url
-      backgroundAudioManager.title = this.data.songInfo.name
-      // appInstance.isMusicPlay = true
-      // appInstance.musicId = id
-      // appInstance
-      this.onBackgroundAudioControl(backgroundAudioManager,id)
+
+      
+      this.progressBar()
+
     } else {
-      backgroundAudioManager.pause()
+      this.backgroundAudioManager.pause()
       // appInstance.isMusicPlay = false
     }
   },
 
   /*  */
-  onBackgroundAudioControl(backgroundAudioManager,id) {
-
+  onBackgroundAudioControl(backgroundAudioManager) {
 
     backgroundAudioManager.onPause(() => {
-      this.setData({
-        isPlay: false
-      })
-      appInstance.isMusicPlay = false
 
-      console.log('我调用了');
-      
+      this.setAudioStatus(false)
+     
     })
+    backgroundAudioManager.onStop(() => {
+      
+      this.setAudioStatus(false)
+
+    })
+
     backgroundAudioManager.onPlay(() => {
-      this.setData({
-        isPlay: true
-      })
-      appInstance.isMusicPlay = true
-      appInstance.musicId = id
+      
+      this.setAudioStatus(true)
+      
+
+      backgroundAudioManager
+
+      appInstance.globalData.musicId = this.data.musicId
 
     })
   },
+
+  handleSwitch(event) {
+
+    let action = event.currentTarget.id
+
+    PubSub.publish('music', {
+      action,
+      id: this.data.musicId
+    });
+
+
+  },
+
+  setAudioStatus(status) {
+    this.setData({
+      isPlay: status
+    })
+    appInstance.globalData.isMusicPlay = status
+
+
+  },
+
   /* 摇杆位置丢失
     页面返回之后实例对象被销毁，再次进入重新初始化  保存  
   */
@@ -70,27 +145,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   /* 返回会销毁当前页面实例 */
-  onLoad: function (options) {
-    const eventChannel = this.getOpenerEventChannel()
-    eventChannel.on('getSongInfo', (songInfo) => {
-      this.setData({
-        songInfo,
-        musicId: songInfo.id
-      })
-      wx.setNavigationBarTitle({
-        title: songInfo.name
-      })
 
-      if (appInstance.musicId == songInfo.id && appInstance.isMusicPlay) {
-
-        this.setData({
-          isPlay: true
-        })
-
-      }
-
-    })
-  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

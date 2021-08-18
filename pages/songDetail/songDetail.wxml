@@ -9,10 +9,21 @@
       <image class="musicImg" src="{{songInfo.album.blurPicUrl}}" />
     </view>
   </view>
+   
+  <!-- 进度条 -->
+   <view class="progressBar">
+     <text class="timeStart">00:01</text>
+     <view class="bar_container">
+       <view class="bar" style="width:{{progress+'%'}}"></view>
+     </view>
+     <text class="timeEnd">00:01</text>
+   </view>
+
+
   <view class="musicControl">
     <text class="iconfont icon-iconsMusicyemianbofangmoshiShuffle"></text>
     <text class="iconfont icon-shangyishou" id="pre" bindtap="handleSwitch"></text>
-    <text class="iconfont {{!isPlay?'icon-zanting': 'icon-bofang'}} big" bindtap="onMusicPlay"></text>
+    <text class="iconfont {{isPlay?'icon-zanting': 'icon-bofang'}} big" bindtap="onMusicPlay"></text>
     <text class="iconfont icon-next" id="next" bindtap="handleSwitch"></text>
     <text class="iconfont icon-iconsMusicyemianbofangmoshiPlayList"></text>
   </view>

@@ -1,0 +1,20 @@
+{
+  "name": "peiqi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pdkax999/music-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pdkax999/music-demo/issues"
+  },
+  "homepage": "https://github.com/pdkax999/music-demo#readme",
+  "dependencies": {
+    "pubsub-js": "^1.9.3"
+  }
+}
