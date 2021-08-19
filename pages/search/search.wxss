@@ -1,0 +1,96 @@
+/* pages/search/search.wxss */
+
+/* 头部搜索框 */
+.search > .header {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.keyWord {
+  position: relative;
+}
+
+.keyWord .iconfont {
+  position: absolute;
+  width: 32rpx;
+  height: 60rpx;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  left: 10rpx;
+}
+
+.header input {
+  width: 560rpx;
+  height: 60rpx;
+  border: #eee solid 4rpx;
+  border-radius: 40rpx;
+  padding-left: 50rpx;
+}
+
+.header > text {
+  margin-left: -40rpx;
+}
+
+/* 历史记录 */
+
+/* .searchHistory {
+  padding: 0rpx 20rpx 20rpx 20rpx;
+}
+.history_container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+.history_container .item {
+  padding: 15rpx;
+  background-color: #eee;
+  margin: 0 10rpx;
+  margin-bottom: 20rpx;
+  border-radius: 40rpx;
+  font-size: 24rpx;
+}
+.history_container .iconfont {
+  position: absolute;
+  right: 0;
+  bottom: 25rpx;
+  font-size: 38rpx;
+} */
+/* 热搜榜 */
+/* .topSearch{
+  margin-top: 60rpx;
+  padding: 20rpx;
+}
+
+.topSearchHead{
+
+  padding-bottom: 20rpx;
+  border-bottom: 4rpx solid #eee;
+
+}
+
+.topSearchList>view{
+padding: 10rpx 0;  
+width: 50%;
+height: 40rpx;
+/* background-color: red; */
+display: inline-block;
+
+}
+.topSearchList text{
+  margin: 0 10rpx;
+}
+.topSearchList image{
+  width: 34rpx;
+  height: 20rpx;
+} */
+
+
+/* 搜索内容区 */
+.search_content{
+
+  
+}

@@ -12,14 +12,12 @@
    
   <!-- 进度条 -->
    <view class="progressBar">
-     <text class="timeStart">00:01</text>
+     <text class="timeStart">{{currentTime}}</text>
      <view class="bar_container">
        <view class="bar" style="width:{{progress+'%'}}"></view>
      </view>
-     <text class="timeEnd">00:01</text>
+     <text class="timeEnd">{{duration}}</text>
    </view>
-
-
   <view class="musicControl">
     <text class="iconfont icon-iconsMusicyemianbofangmoshiShuffle"></text>
     <text class="iconfont icon-shangyishou" id="pre" bindtap="handleSwitch"></text>

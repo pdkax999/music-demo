@@ -5,19 +5,19 @@ export default function (url, data = {}, method = "GET") {
   return new Promise((resolve, reject) => {
 
     wx.request({
-      url: reqAddress.host + url,
+      url: reqAddress.RealMachineTest + url,
       data,
       method,
       header: {
-        cookie: wx.getStorageSync('cookies') ?  wx.getStorageSync('cookies').find(item => item.indexOf('MUSIC_U') !== -1) : ''
+        cookie: wx.getStorageSync('cookies') ? wx.getStorageSync('cookies').find(item => item.indexOf('MUSIC_U') !== -1) : ''
       },
       success: (res) => {
 
         if (data.isLogin) {
 
           wx.setStorage({
-            key:"cookies",
-            data:res.cookies
+            key: "cookies",
+            data: res.cookies
           })
           // wx.setStorageSync('cookie',res.cookies)
           // wx.setStorageSync({

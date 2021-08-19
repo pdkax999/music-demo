@@ -171,6 +171,7 @@ justify-content: space-between;
 }
 
 .bar_container{
+/* padding: 39rpx; */
 width: 450rpx;
 height: 4rpx;
 border-radius: 1rpx;

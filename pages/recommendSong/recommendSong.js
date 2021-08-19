@@ -38,8 +38,6 @@ Page({
   gotoSongDetail(event) {
 
     let songInfo = event.currentTarget.dataset.data
-
-
     wx.navigateTo({
       url: '/pages/songDetail/songDetail',
       success: function (res) {
@@ -68,31 +66,18 @@ Page({
       let {
         songList
       } = this.data
-
       let musicIndex = songList.findIndex(item => item.id == id)
       let result
       if (action == 'pre') {
+        (musicIndex == 0) && (musicIndex = songList.length);
         result = musicIndex - 1
-        if (result < 0) {
-
-          result = songList.length - 1
-        }
       } else {
+        (musicIndex == songList.length - 1) && (musicIndex = -1);
         result = musicIndex + 1
-
-        if (result > songList.length - 1) {
-
-          result = 0
-
-        }
       }
-
       PubSub.publish('switchMusic', this.data.songList[result]);
     });
-
-
   },
-
 
   /**
    * 生命周期函数--监听页面初次渲染完成
